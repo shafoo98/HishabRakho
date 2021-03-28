@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "8601877384",
+    "project_id": "hishabrakho-f34fd",
+    "storage_bucket": "hishabrakho-f34fd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:8601877384:android:5b6bf97a86a712ca11583d",
+        "android_client_info": {
+          "package_name": "com.example.hishab_rakho"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "8601877384-gdgrol4943jiqecdg7rmtsccn5ldcon4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHGlFqGvKZlHoB9O7hjIUzaiFIO1Sn9pA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "8601877384-gdgrol4943jiqecdg7rmtsccn5ldcon4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
