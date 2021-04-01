@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hishab_rakho/screens/home_screens/settings_screen.dart';
-import 'package:hishab_rakho/screens/home_screens/overview.dart';
+import 'package:hishab_rakho/screens/other_screens/settings_screen.dart';
+import 'package:hishab_rakho/screens/other_screens/overview.dart';
 
 class Home extends StatelessWidget {
   @override
