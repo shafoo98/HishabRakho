@@ -162,7 +162,7 @@ class _SignInState extends State<SignIn> {
                         }),
                   ),
                   SizedBox(
-                    height: size.height * 0.1,
+                    height: size.height * 0.01,
                     child: Text(
                       error,
                       style: TextStyle(color: Colors.red, fontSize: 14.0),

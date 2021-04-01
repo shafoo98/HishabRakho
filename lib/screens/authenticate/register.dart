@@ -161,7 +161,7 @@ class _RegisterState extends State<Register> {
                         }),
                   ),
                   SizedBox(
-                    height: size.height * 0.1,
+                    height: size.height * 0.01,
                     child: Text(
                       error,
                       style: TextStyle(color: Colors.red, fontSize: 14.0),
