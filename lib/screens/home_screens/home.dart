@@ -9,10 +9,10 @@ class Home extends StatelessWidget {
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
+          backgroundColor: Color.fromRGBO(73, 118, 185, 1.0),
           title: Text('Hishabh Rakho'),
           bottom: TabBar(
-            indicatorColor: Color.fromRGBO(200, 255, 0, 1),
+            indicatorColor: Colors.blueGrey[100],
             tabs: [
               Tab(
                 child: Text(
