@@ -1,7 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hishab_rakho/models/user.dart';
+import 'package:hishab_rakho/services/database.dart';
 
 class AuthService {
+  var dateAddedWallet = DateTime.now();
+  var dateAddedBill = DateTime.now();
+  var dateAddedBudget = DateTime.now();
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // create userobj based on Firebase user
@@ -22,6 +27,30 @@ class AuthService {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
+      // Create a new  wallet document for the user with the uid
+      await DatabaseService(uid: user.uid).updateUserWalletData(
+        'Name',
+        'New Wallet',
+        0,
+        dateAddedWallet,
+      );
+
+      // Create a new  bills document for the user with the uid
+      await DatabaseService(uid: user.uid).updateUserBillsData(
+        'Name',
+        'New Bill',
+        0,
+        dateAddedBill,
+      );
+
+      // Create a new  wallet document for the user with the uid
+      await DatabaseService(uid: user.uid).updateUserBudgetsData(
+        'Name',
+        'New Budget',
+        0,
+        dateAddedBudget,
+      );
+
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());
