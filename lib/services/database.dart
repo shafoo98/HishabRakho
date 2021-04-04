@@ -1,15 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hishab_rakho/models/wallet.dart';
 
 class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
-  //Collection reference
+  //Wallets Collection reference
   final CollectionReference walletCollection =
       Firestore.instance.collection('Wallets');
-  //Collection reference
+  //Bills Collection reference
   final CollectionReference billsCollection =
       Firestore.instance.collection('Bills');
-  //Collection reference
+  //Budgets Collection reference
   final CollectionReference budgetsCollection =
       Firestore.instance.collection('Budgets');
 
@@ -44,5 +45,21 @@ class DatabaseService {
       'budgetValue': budgetValue,
       'dateAddedBill': dateAddedBudget,
     });
+  }
+
+  // Wallet list from snapshot
+
+  List<Wallet> _walletListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc) {
+      return Wallet(
+        walletName: doc.data['walletName'] ?? '',
+        walletDescription: doc.data['walletDescription'] ?? '',
+        walletValue: doc.data['walletValue'] ?? 0,
+      );
+    }).toList();
+  }
+
+  Stream<List<Wallet>> get wallets {
+    return walletCollection.snapshots().map(_walletListFromSnapshot);
   }
 }

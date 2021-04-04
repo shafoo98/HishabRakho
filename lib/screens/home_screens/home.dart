@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hishab_rakho/screens/other_screens/settings_screen.dart';
-import 'package:hishab_rakho/screens/other_screens/overview.dart';
+import 'package:hishab_rakho/screens/main_screens/settings_screen.dart';
+import 'package:hishab_rakho/screens/main_screens/overview.dart';
+import 'package:hishab_rakho/screens/main_screens/wallets_screen.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -55,7 +56,7 @@ class Home extends StatelessWidget {
         body: TabBarView(
           children: [
             Overview(),
-            Icon(Icons.account_balance_wallet),
+            WalletPage(),
             Icon(Icons.receipt),
             Icon(Icons.payment),
             Settings(),
