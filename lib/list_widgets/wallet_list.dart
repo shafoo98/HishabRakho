@@ -11,7 +11,7 @@ class WalletList extends StatefulWidget {
 class _WalletListState extends State<WalletList> {
   @override
   Widget build(BuildContext context) {
-    final wallets = Provider.of<List<Wallet>>(context);
+    final wallets = Provider.of<List<Wallet>>(context) ?? [];
     return ListView.builder(
       shrinkWrap: true,
       itemCount: wallets.length,
