@@ -109,6 +109,7 @@ class _AddWalletFormState extends State<AddWalletForm> {
                   ' ' +
                   _walletDescription +
                   ' ' +
+                  ' value is ' +
                   '$_walletValue');
             },
             elevation: 5.0,
