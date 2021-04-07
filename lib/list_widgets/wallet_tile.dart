@@ -15,7 +15,7 @@ class WalletTile extends StatelessWidget {
         color: Colors.blue[50],
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, size.height * 0.005),
         child: Slidable(
-          actionPane: SlidableScrollActionPane(),
+          actionPane: SlidableDrawerActionPane(),
           actionExtentRatio: 1 / 4,
           actions: [
             IconSlideAction(
@@ -41,6 +41,25 @@ class WalletTile extends StatelessWidget {
             leading: Icon(Icons.account_balance_wallet),
             title: Text(wallet.walletName),
             subtitle: Text("\$ " + '${wallet.walletValue}'),
+            onTap: () {
+              showDialog(
+                context: context,
+                child: AlertDialog(
+                  title: Text(wallet.walletName),
+                  content: Text(wallet.walletDescription +
+                      '\n \n' +
+                      'Amount: ' +
+                      wallet.walletValue.toString()),
+                  elevation: 5.0,
+                  actions: [
+                    FlatButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text('OK'),
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ),
