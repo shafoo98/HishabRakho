@@ -11,7 +11,7 @@ class WalletTile extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: size.height * 0.01),
       child: Card(
-        elevation: 10.0,
+        elevation: 5.0,
         color: Colors.blue[50],
         margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, size.height * 0.005),
         child: Slidable(
