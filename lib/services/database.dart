@@ -14,7 +14,7 @@ class DatabaseService {
   final CollectionReference budgetsCollection =
       Firestore.instance.collection('Budgets');
 
-  Future updateUserWalletData(String walletName, String walletDescription,
+  Future addUserWalletData(String walletName, String walletDescription,
       int walletValue, var dateAddedWallet) async {
     dateAddedWallet = DateTime.now();
     return await walletCollection.document(uid).setData({
@@ -25,7 +25,7 @@ class DatabaseService {
     });
   }
 
-  Future updateUserBillsData(String billName, String billDescription,
+  Future addUserBillsData(String billName, String billDescription,
       int billValue, var dateAddedBill) async {
     dateAddedBill = DateTime.now();
     return await billsCollection.document(uid).setData({
@@ -36,7 +36,7 @@ class DatabaseService {
     });
   }
 
-  Future updateUserBudgetsData(String budgetName, String budgetDescription,
+  Future addUserBudgetsData(String budgetName, String budgetDescription,
       int budgetValue, var dateAddedBudget) async {
     dateAddedBudget = DateTime.now();
     return await budgetsCollection.document(uid).setData({

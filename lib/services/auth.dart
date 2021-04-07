@@ -28,7 +28,7 @@ class AuthService {
           email: email, password: password);
       FirebaseUser user = result.user;
       // Create a new  wallet document for the user with the uid
-      await DatabaseService(uid: user.uid).updateUserWalletData(
+      await DatabaseService(uid: user.uid).addUserWalletData(
         'Example Wallet Name',
         'Describe your wallet here in details',
         0,
@@ -36,7 +36,7 @@ class AuthService {
       );
 
       // Create a new  bills document for the user with the uid
-      await DatabaseService(uid: user.uid).updateUserBillsData(
+      await DatabaseService(uid: user.uid).addUserBillsData(
         'Name',
         'New Bill',
         0,
@@ -44,7 +44,7 @@ class AuthService {
       );
 
       // Create a new  wallet document for the user with the uid
-      await DatabaseService(uid: user.uid).updateUserBudgetsData(
+      await DatabaseService(uid: user.uid).addUserBudgetsData(
         'Name',
         'New Budget',
         0,

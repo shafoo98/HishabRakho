@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hishab_rakho/services/database.dart';
 
 class AddWalletForm extends StatefulWidget {
   @override
@@ -11,10 +12,13 @@ class _AddWalletFormState extends State<AddWalletForm> {
   String _walletName;
   String _walletDescription;
   int _walletValue;
+  DateTime _dateAdded = DateTime.now();
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final DatabaseService _dbService = DatabaseService();
     return Form(
       key: _formKey,
       child: Column(
@@ -39,7 +43,7 @@ class _AddWalletFormState extends State<AddWalletForm> {
               ),
             ),
             validator: (value) => value.isEmpty
-                ? 'Please enter a name' + 'for wallet or account'
+                ? 'Please enter a name' + ' for wallet or account'
                 : null,
             onChanged: (value) {
               setState(() {
@@ -67,7 +71,7 @@ class _AddWalletFormState extends State<AddWalletForm> {
                 ),
               ),
               validator: (value) => value.isEmpty
-                  ? 'Please enter a description' + 'for wallet or account'
+                  ? 'Please enter a description' + ' for wallet or account'
                   : null,
               onChanged: (value) {
                 setState(() {
@@ -92,7 +96,7 @@ class _AddWalletFormState extends State<AddWalletForm> {
               ),
             ),
             validator: (value) => value.isEmpty
-                ? 'Please enter an amount' + 'for wallet or account'
+                ? 'Please enter an amount' + ' for wallet or account'
                 : null,
             onChanged: (value) {
               setState(() {
@@ -104,13 +108,17 @@ class _AddWalletFormState extends State<AddWalletForm> {
             height: size.height * 0.025,
           ),
           RaisedButton(
-            onPressed: () {
-              print(_walletName +
-                  ' ' +
-                  _walletDescription +
-                  ' ' +
-                  ' value is ' +
-                  '$_walletValue');
+            onPressed: () async {
+              if (_formKey.currentState.validate()) {
+                dynamic result = await _dbService.addUserWalletData(
+                    _walletName, _walletDescription, _walletValue, _dateAdded);
+                if (result == null) {
+                  setState(() {
+                    error = "Something went wrong";
+                  });
+                }
+                Navigator.of(context).pop();
+              }
             },
             elevation: 5.0,
             child: Text(
@@ -121,6 +129,13 @@ class _AddWalletFormState extends State<AddWalletForm> {
                   color: Colors.black45),
             ),
             color: Colors.grey[200],
+          ),
+          SizedBox(
+            height: size.height * 0.005,
+            child: Text(
+              error,
+              style: TextStyle(color: Colors.red, fontSize: 14.0),
+            ),
           ),
         ],
       ),
