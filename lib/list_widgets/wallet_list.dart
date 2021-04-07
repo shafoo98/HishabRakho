@@ -14,8 +14,8 @@ class _WalletListState extends State<WalletList> {
     final wallets = Provider.of<List<Wallet>>(context) ?? [];
     return ListView.builder(
       shrinkWrap: true,
+      physics: ScrollPhysics(),
       itemCount: wallets.length,
-      scrollDirection: Axis.vertical,
       itemBuilder: (context, index) {
         return WalletTile(wallet: wallets[index]);
       },

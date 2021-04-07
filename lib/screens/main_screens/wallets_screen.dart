@@ -25,18 +25,16 @@ class _WalletPageState extends State<WalletPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(children: [
-        StreamProvider<List<Wallet>>.value(
-          value: DatabaseService().wallets,
-          child: WalletList(),
-        ),
-        FlatButton.icon(
-          icon: Icon(Icons.add_box),
-          label: Text("Add a wallet"),
-          onPressed: () => _addWalletPanel(),
-        ),
-      ]),
-    );
+    return ListView(children: [
+      StreamProvider<List<Wallet>>.value(
+        value: DatabaseService().wallets,
+        child: WalletList(),
+      ),
+      FlatButton.icon(
+        icon: Icon(Icons.add_box),
+        label: Text("Add a wallet"),
+        onPressed: () => _addWalletPanel(),
+      ),
+    ]);
   }
 }
