@@ -4,62 +4,55 @@ import 'package:hishab_rakho/models/wallet.dart';
 class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
-  //Wallets Collection reference
-  final CollectionReference walletCollection =
-      Firestore.instance.collection('Wallets');
-  //Bills Collection reference
-  final CollectionReference billsCollection =
-      Firestore.instance.collection('Bills');
-  //Budgets Collection reference
-  final CollectionReference budgetsCollection =
-      Firestore.instance.collection('Budgets');
+
+  //Users Collection reference
+  final CollectionReference userCollection =
+      FirebaseFirestore.instance.collection('Users');
 
   Future addUserWalletData(String walletName, String walletDescription,
-      int walletValue, var dateAddedWallet) async {
-    dateAddedWallet = DateTime.now();
-    return await walletCollection.document(uid).setData({
+      int walletValue, var dateAdded) async {
+    dateAdded = DateTime.now();
+    return await userCollection.doc(uid).collection('Wallets').add({
       'walletName': walletName,
       'walletDescription': walletDescription,
       'walletValue': walletValue,
-      'dateAdded': dateAddedWallet,
+      'dateAdded': dateAdded
     });
   }
 
   Future addUserBillsData(String billName, String billDescription,
-      int billValue, var dateAddedBill) async {
-    dateAddedBill = DateTime.now();
-    return await billsCollection.document(uid).setData({
-      'billName': billName,
-      'billDescription': billDescription,
-      'billValue': billValue,
-      'dateAddedBill': dateAddedBill
+      int billValue, var dateAdded) async {
+    dateAdded = DateTime.now();
+    return await userCollection.doc(uid).collection('Bills').add({
+      'walletName': billName,
+      'walletDescription': billDescription,
+      'walletValue': billValue,
+      'dateAdded': dateAdded
     });
   }
 
   Future addUserBudgetsData(String budgetName, String budgetDescription,
-      int budgetValue, var dateAddedBudget) async {
-    dateAddedBudget = DateTime.now();
-    return await budgetsCollection.document(uid).setData({
-      'budgetName': budgetName,
-      'budgetDescription': budgetDescription,
-      'budgetValue': budgetValue,
-      'dateAddedBill': dateAddedBudget,
+      int budgetValue, var dateAdded) async {
+    dateAdded = DateTime.now();
+    return await userCollection.doc(uid).collection('Budgets').add({
+      'walletName': budgetName,
+      'walletDescription': budgetDescription,
+      'walletValue': budgetValue,
+      'dateAdded': dateAdded
     });
   }
 
-  // Wallet list from snapshot
-
   List<Wallet> _walletListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.documents.map((doc) {
+    return snapshot.docs.map((doc) {
       return Wallet(
-        walletName: doc.data['walletName'] ?? '',
-        walletDescription: doc.data['walletDescription'] ?? '',
-        walletValue: doc.data['walletValue'] ?? 0,
+        walletName: doc.data()['walletName'] ?? '',
+        walletDescription: doc.data()['walletDescription'] ?? '',
+        walletValue: doc.data()['walletValue'] ?? 0,
       );
     }).toList();
   }
 
   Stream<List<Wallet>> get wallets {
-    return walletCollection.snapshots().map(_walletListFromSnapshot);
+    return userCollection.snapshots().map(_walletListFromSnapshot);
   }
 }

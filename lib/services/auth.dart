@@ -11,45 +11,29 @@ class AuthService {
 
   // create userobj based on Firebase user
 
-  User _userFromFirebaseUser(FirebaseUser user) {
-    return user != null ? User(uid: user.uid) : null;
+  MyUser _userFromFirebaseUser(User user) {
+    return user != null ? MyUser(uid: user.uid) : null;
   }
 
   //Auth change user stream
-  Stream<User> get user {
-    return _auth.onAuthStateChanged.map(_userFromFirebaseUser);
+  Stream<MyUser> get user {
+    return _auth
+        .authStateChanges()
+        .map((User user) => _userFromFirebaseUser(user));
   }
 
   //Register with email and password
 
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
-      AuthResult result = await _auth.createUserWithEmailAndPassword(
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
-      FirebaseUser user = result.user;
-      // Create a new  wallet document for the user with the uid
+      User user = result.user;
+
+      // Create a new User Collection
+
       await DatabaseService(uid: user.uid).addUserWalletData(
-        'Example Wallet Name',
-        'Describe your wallet here in details',
-        0,
-        dateAddedWallet,
-      );
-
-      // Create a new  bills document for the user with the uid
-      await DatabaseService(uid: user.uid).addUserBillsData(
-        'Name',
-        'New Bill',
-        0,
-        dateAddedBill,
-      );
-
-      // Create a new  wallet document for the user with the uid
-      await DatabaseService(uid: user.uid).addUserBudgetsData(
-        'Name',
-        'New Budget',
-        0,
-        dateAddedBudget,
-      );
+          'Example Wallet', 'This is an example wallet', 100, dateAddedWallet);
 
       return _userFromFirebaseUser(user);
     } catch (e) {
@@ -57,14 +41,13 @@ class AuthService {
       return null;
     }
   }
-
   //Sign in with email and password
 
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
-      AuthResult result = await _auth.signInWithEmailAndPassword(
+      UserCredential result = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      FirebaseUser user = result.user;
+      User user = result.user;
       return _userFromFirebaseUser(user);
     } catch (e) {
       print(e.toString());

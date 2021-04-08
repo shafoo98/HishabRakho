@@ -28,7 +28,7 @@ class WalletTile extends StatelessWidget {
               caption: 'Delete',
               color: Colors.red,
               icon: Icons.delete,
-              onTap: () => print("Deleted"),
+              onTap: () => print('Deleted'),
             ),
             IconSlideAction(
               caption: 'Edit',
