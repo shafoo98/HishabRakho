@@ -9,14 +9,25 @@ class DatabaseService {
   final CollectionReference userCollection =
       FirebaseFirestore.instance.collection('Users');
 
-  Future addUserWalletData(String walletName, String walletDescription,
-      int walletValue, var dateAdded) async {
+  final CollectionReference walletCollection =
+      FirebaseFirestore.instance.collection('Wallets');
+
+  Future addUser(String email, String password) {
+    return userCollection.add({
+      'email': email,
+      'password': password,
+    });
+  }
+
+  Future addWalletData(String walletName, String walletDescription,
+      int walletValue, var dateAdded, String uid) async {
     dateAdded = DateTime.now();
-    return await userCollection.doc(uid).collection('Wallets').add({
+    return await walletCollection.add({
       'walletName': walletName,
       'walletDescription': walletDescription,
       'walletValue': walletValue,
-      'dateAdded': dateAdded
+      'dateAdded': dateAdded,
+      'uid': uid,
     });
   }
 
@@ -45,14 +56,19 @@ class DatabaseService {
   List<Wallet> _walletListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Wallet(
-        walletName: doc.data()['walletName'] ?? '',
-        walletDescription: doc.data()['walletDescription'] ?? '',
-        walletValue: doc.data()['walletValue'] ?? 0,
-      );
+          walletName: doc.data()['walletName'] ?? 'Example Wallet',
+          walletDescription:
+              doc.data()['walletDescription'] ?? 'Example Description',
+          walletValue: doc.data()['walletValue'] ?? 100,
+          uid: doc.data()['uid']);
     }).toList();
   }
 
   Stream<List<Wallet>> get wallets {
-    return userCollection.snapshots().map(_walletListFromSnapshot);
+    return walletCollection
+        .where('uid', isEqualTo: uid)
+        .orderBy('dateAdded', descending: true)
+        .snapshots()
+        .map(_walletListFromSnapshot);
   }
 }

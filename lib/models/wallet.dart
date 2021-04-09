@@ -1,14 +1,14 @@
 class Wallet {
-  final String walletName;
-  final String walletDescription;
-  final int walletValue;
-  final DateTime dateTime;
-  final int walletId;
+  String walletName;
+  String walletDescription;
+  int walletValue;
+  DateTime dateTime;
+  String uid;
 
   Wallet(
       {this.walletName,
       this.walletDescription,
       this.walletValue,
       this.dateTime,
-      this.walletId});
+      this.uid});
 }

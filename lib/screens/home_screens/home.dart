@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hishab_rakho/models/user.dart';
 import 'package:hishab_rakho/screens/main_screens/settings_screen.dart';
 import 'package:hishab_rakho/screens/main_screens/overview.dart';
 import 'package:hishab_rakho/screens/main_screens/wallets_screen.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<MyUser>(context);
     return DefaultTabController(
       length: 5,
       child: Scaffold(
@@ -56,7 +59,7 @@ class Home extends StatelessWidget {
         body: TabBarView(
           children: [
             Overview(),
-            WalletPage(),
+            WalletPage(uid: user.uid),
             Icon(Icons.receipt),
             Icon(Icons.payment),
             Settings(),

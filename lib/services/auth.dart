@@ -32,8 +32,7 @@ class AuthService {
 
       // Create a new User Collection
 
-      await DatabaseService(uid: user.uid).addUserWalletData(
-          'Example Wallet', 'This is an example wallet', 100, dateAddedWallet);
+      await DatabaseService(uid: user.uid).addUser(email, password);
 
       return _userFromFirebaseUser(user);
     } catch (e) {

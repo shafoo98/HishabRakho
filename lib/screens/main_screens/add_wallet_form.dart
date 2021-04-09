@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:hishab_rakho/services/database.dart';
 
 class AddWalletForm extends StatefulWidget {
+  final String uid;
+  AddWalletForm({this.uid});
   @override
-  _AddWalletFormState createState() => _AddWalletFormState();
+  _AddWalletFormState createState() => _AddWalletFormState(uid: uid);
 }
 
 class _AddWalletFormState extends State<AddWalletForm> {
+  final String uid;
+  _AddWalletFormState({this.uid});
   final _formKey = GlobalKey<FormState>();
 
   String _walletName;
@@ -110,8 +114,8 @@ class _AddWalletFormState extends State<AddWalletForm> {
           RaisedButton(
             onPressed: () async {
               if (_formKey.currentState.validate()) {
-                dynamic result = await _dbService.addUserWalletData(
-                    _walletName, _walletDescription, _walletValue, _dateAdded);
+                dynamic result = await _dbService.addWalletData(_walletName,
+                    _walletDescription, _walletValue, _dateAdded, uid);
                 if (result == null) {
                   setState(() {
                     error = "Something went wrong";
