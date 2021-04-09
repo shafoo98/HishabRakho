@@ -1,16 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hishab_rakho/models/bill.dart';
 import 'package:hishab_rakho/models/wallet.dart';
 
 class DatabaseService {
   final String uid;
   DatabaseService({this.uid});
 
-  //Users Collection reference
-  final CollectionReference userCollection =
-      FirebaseFirestore.instance.collection('Users');
-
   final CollectionReference walletCollection =
       FirebaseFirestore.instance.collection('Wallets');
+
+  final CollectionReference billsCollection =
+      FirebaseFirestore.instance.collection('Bills');
+
+  final CollectionReference budgetsCollection =
+      FirebaseFirestore.instance.collection('Budgets');
 
   Future addWalletData(String walletName, String walletDescription,
       int walletValue, var dateAdded, String uid) async {
@@ -21,28 +24,6 @@ class DatabaseService {
       'walletValue': walletValue,
       'dateAdded': dateAdded,
       'uid': uid,
-    });
-  }
-
-  Future addUserBillsData(String billName, String billDescription,
-      int billValue, var dateAdded) async {
-    dateAdded = DateTime.now();
-    return await userCollection.doc(uid).collection('Bills').add({
-      'walletName': billName,
-      'walletDescription': billDescription,
-      'walletValue': billValue,
-      'dateAdded': dateAdded
-    });
-  }
-
-  Future addUserBudgetsData(String budgetName, String budgetDescription,
-      int budgetValue, var dateAdded) async {
-    dateAdded = DateTime.now();
-    return await userCollection.doc(uid).collection('Budgets').add({
-      'walletName': budgetName,
-      'walletDescription': budgetDescription,
-      'walletValue': budgetValue,
-      'dateAdded': dateAdded
     });
   }
 
@@ -64,4 +45,47 @@ class DatabaseService {
         .snapshots()
         .map(_walletListFromSnapshot);
   }
+
+  Future addUserBillsData(String billName, String billDescription,
+      int billValue, var dateAdded, String uid) async {
+    dateAdded = DateTime.now();
+    return await billsCollection.add({
+      'billName': billName,
+      'billDescription': billDescription,
+      'Value': billValue,
+      'dateAdded': dateAdded,
+      'uid': uid,
+    });
+  }
+
+  List<Bill> _billListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Bill(
+          billName: doc.data()['billName'] ?? 'Example Expense',
+          billDescription:
+              doc.data()['billDescription'] ?? 'Example Description',
+          billValue: doc.data()['billValue'] ?? 100,
+          uid: doc.data()['uid']);
+    }).toList();
+  }
+
+  Stream<List<Bill>> get bills {
+    return billsCollection
+        .where('uid', isEqualTo: uid)
+        .orderBy('dateAdded', descending: true)
+        .snapshots()
+        .map(_billListFromSnapshot);
+  }
 }
+
+// Future addUserBudgetsData(String budgetName, String budgetDescription,
+//       int budgetValue, var dateAdded, String uid) async {
+//     dateAdded = DateTime.now();
+//     return await budgetsCollection.add({
+//       'walletName': budgetName,
+//       'walletDescription': budgetDescription,
+//       'walletValue': budgetValue,
+//       'dateAdded': dateAdded,
+//       'uid': uid,
+//     });
+//   }

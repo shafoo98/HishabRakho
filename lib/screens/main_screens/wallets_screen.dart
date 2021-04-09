@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hishab_rakho/list_widgets/wallet_list.dart';
 import 'package:hishab_rakho/models/wallet.dart';
-import 'package:hishab_rakho/screens/main_screens/add_wallet_form.dart';
+import 'package:hishab_rakho/list_widgets/add_wallet_form.dart';
 import 'package:hishab_rakho/services/database.dart';
 import 'package:provider/provider.dart';
 

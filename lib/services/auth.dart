@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hishab_rakho/models/user.dart';
-import 'package:hishab_rakho/services/database.dart';
 
 class AuthService {
   var dateAddedWallet = DateTime.now();
