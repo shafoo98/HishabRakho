@@ -12,13 +12,6 @@ class DatabaseService {
   final CollectionReference walletCollection =
       FirebaseFirestore.instance.collection('Wallets');
 
-  Future addUser(String email, String password) {
-    return userCollection.add({
-      'email': email,
-      'password': password,
-    });
-  }
-
   Future addWalletData(String walletName, String walletDescription,
       int walletValue, var dateAdded, String uid) async {
     dateAdded = DateTime.now();
