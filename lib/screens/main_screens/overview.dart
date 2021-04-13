@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hishab_rakho/pie_charts/accounts_pie_charts.dart';
 
 class Overview extends StatelessWidget {
   @override
@@ -9,9 +10,9 @@ class Overview extends StatelessWidget {
       /// Use [Axis.vertical] to scroll vertically.
       scrollDirection: Axis.vertical,
       controller: controller,
-      children: const <Widget>[
+      children: <Widget>[
         Center(
-          child: Text('First Page'),
+          child: AccountsPieChart(),
         ),
         Center(
           child: Text('Second Page'),

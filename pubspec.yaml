@@ -35,6 +35,7 @@ dependencies:
   flutter_spinkit: "^4.0.0"
   flutter_slidable: ^0.5.4
   percent_indicator: "^2.1.7+2"
+  pie_chart: ^4.0.1
 
 dev_dependencies:
   flutter_test:
