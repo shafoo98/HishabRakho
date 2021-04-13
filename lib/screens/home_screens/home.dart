@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hishab_rakho/models/user.dart';
 import 'package:hishab_rakho/screens/main_screens/bill_screen.dart';
+import 'package:hishab_rakho/screens/main_screens/budget_screen.dart';
 import 'package:hishab_rakho/screens/main_screens/settings_screen.dart';
 import 'package:hishab_rakho/screens/main_screens/overview.dart';
 import 'package:hishab_rakho/screens/main_screens/wallets_screen.dart';
@@ -62,7 +63,7 @@ class Home extends StatelessWidget {
             Overview(),
             WalletPage(uid: user.uid),
             BillPage(uid: user.uid),
-            Icon(Icons.payment),
+            BudgetPage(uid: user.uid),
             Settings(),
           ],
         ),

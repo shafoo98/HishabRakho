@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:hishab_rakho/services/database.dart';
 
-class AddWalletForm extends StatefulWidget {
+class AddBudgetForm extends StatefulWidget {
   final String uid;
-  AddWalletForm({this.uid});
+  AddBudgetForm({this.uid});
   @override
-  _AddWalletFormState createState() => _AddWalletFormState(uid: uid);
+  _AddBudgetFormState createState() => _AddBudgetFormState(uid: uid);
 }
 
-class _AddWalletFormState extends State<AddWalletForm> {
+class _AddBudgetFormState extends State<AddBudgetForm> {
   final String uid;
-  _AddWalletFormState({this.uid});
+  _AddBudgetFormState({this.uid});
   final _formKey = GlobalKey<FormState>();
 
-  String _walletName;
-  String _walletDescription;
-  int _walletValue;
+  String _budgetName;
+  String _budgetDescription;
+  int _budgetValue;
   DateTime _dateAdded = DateTime.now();
-  int _walletId = 0;
   String error = '';
 
   @override
@@ -30,7 +29,7 @@ class _AddWalletFormState extends State<AddWalletForm> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
-            'Add a wallet here',
+            'Add a budget here',
             style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
           ),
           SizedBox(
@@ -40,19 +39,18 @@ class _AddWalletFormState extends State<AddWalletForm> {
             maxLength: 50,
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.edit),
-              hintText: 'Name of wallet or account',
+              hintText: 'Name of budget',
               fillColor: Colors.white,
               filled: true,
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.black54, width: 1.0),
               ),
             ),
-            validator: (value) => value.isEmpty
-                ? 'Please enter a name' + ' for wallet or account'
-                : null,
+            validator: (value) =>
+                value.isEmpty ? 'Please enter a name' + ' for budget' : null,
             onChanged: (value) {
               setState(() {
-                _walletName = value;
+                _budgetName = value;
               });
             },
           ),
@@ -68,7 +66,7 @@ class _AddWalletFormState extends State<AddWalletForm> {
               maxLines: null,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.edit),
-                hintText: 'Describe your wallet or account in details',
+                hintText: 'Describe your budget in details',
                 fillColor: Colors.white,
                 filled: true,
                 enabledBorder: OutlineInputBorder(
@@ -76,11 +74,11 @@ class _AddWalletFormState extends State<AddWalletForm> {
                 ),
               ),
               validator: (value) => value.isEmpty
-                  ? 'Please enter a description' + ' for wallet or account'
+                  ? 'Please enter a description' + ' for budget'
                   : null,
               onChanged: (value) {
                 setState(() {
-                  _walletDescription = value;
+                  _budgetDescription = value;
                 });
               },
             ),
@@ -93,19 +91,18 @@ class _AddWalletFormState extends State<AddWalletForm> {
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.monetization_on),
-              hintText: 'Enter the amount of your wallet or account',
+              hintText: 'Enter the amount of your budget',
               fillColor: Colors.white,
               filled: true,
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.black54, width: 1.0),
               ),
             ),
-            validator: (value) => value.isEmpty
-                ? 'Please enter an amount' + ' for wallet or account'
-                : null,
+            validator: (value) =>
+                value.isEmpty ? 'Please enter an amount' + ' for budget' : null,
             onChanged: (value) {
               setState(() {
-                _walletValue = int.parse(value);
+                _budgetValue = int.parse(value);
               });
             },
           ),
@@ -115,14 +112,12 @@ class _AddWalletFormState extends State<AddWalletForm> {
           RaisedButton(
             onPressed: () async {
               if (_formKey.currentState.validate()) {
-                dynamic result = await _dbService.addWalletData(
-                  _walletName,
-                  _walletDescription,
-                  _walletValue,
-                  _dateAdded,
-                  uid,
-                  _walletId += 1,
-                );
+                dynamic result = await _dbService.addUserBudgetsData(
+                    _budgetName,
+                    _budgetDescription,
+                    _budgetValue,
+                    _dateAdded,
+                    uid);
                 if (result == null) {
                   setState(() {
                     error = "Something went wrong";
@@ -133,7 +128,7 @@ class _AddWalletFormState extends State<AddWalletForm> {
             },
             elevation: 5.0,
             child: Text(
-              'Add Wallet',
+              'Add Budget',
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w100,
