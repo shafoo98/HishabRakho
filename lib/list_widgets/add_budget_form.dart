@@ -26,11 +26,15 @@ class _AddBudgetFormState extends State<AddBudgetForm> {
     return Form(
       key: _formKey,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            'Add a budget here',
-            style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+          Padding(
+            padding: EdgeInsets.only(top: size.height * 0.02),
+            child: Text(
+              'Add a budget here',
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
           ),
           SizedBox(
             height: size.height * 0.025,

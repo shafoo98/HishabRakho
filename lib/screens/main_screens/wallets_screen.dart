@@ -17,12 +17,19 @@ class _WalletPageState extends State<WalletPage> {
   _WalletPageState({this.uid});
   void _addWalletPanel(String uid) {
     showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+        ),
+        isScrollControlled: true,
         context: context,
         builder: (context) {
-          final Size size = MediaQuery.of(context).size;
-          return Container(
-            padding: EdgeInsets.only(top: size.height * 0.025),
-            child: AddWalletForm(uid: uid),
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Container(
+              child: AddWalletForm(uid: uid),
+            ),
           );
         });
   }
