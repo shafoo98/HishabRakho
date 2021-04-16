@@ -9,7 +9,7 @@ class WalletTile extends StatelessWidget {
   final String uid;
   WalletTile({this.wallet, this.uid});
 
-  void _editWalletPanel(String uid, String walletId, BuildContext context) {
+  void _editWalletPanel(String walletId, BuildContext context) {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -23,7 +23,6 @@ class WalletTile extends StatelessWidget {
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Container(
               child: EditWalletForm(
-                uid: uid,
                 walletId: wallet.walletId,
               ),
             ),
@@ -61,7 +60,9 @@ class WalletTile extends StatelessWidget {
               caption: 'Edit',
               color: Colors.green,
               icon: Icons.edit,
-              onTap: () => _editWalletPanel(uid, wallet.walletId, context),
+              onTap: () {
+                _editWalletPanel(wallet.walletId, context);
+              },
             ),
           ],
           child: ListTile(

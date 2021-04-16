@@ -6,7 +6,8 @@ class EditWalletForm extends StatefulWidget {
   final String walletId;
   EditWalletForm({this.uid, this.walletId});
   @override
-  _EditWalletFormState createState() => _EditWalletFormState(uid: uid);
+  _EditWalletFormState createState() =>
+      _EditWalletFormState(uid: uid, walletId: walletId);
 }
 
 class _EditWalletFormState extends State<EditWalletForm> {
