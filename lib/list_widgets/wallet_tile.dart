@@ -23,6 +23,7 @@ class WalletTile extends StatelessWidget {
                 bottom: MediaQuery.of(context).viewInsets.bottom),
             child: Container(
               child: EditWalletForm(
+                uid: uid,
                 walletId: wallet.walletId,
               ),
             ),
