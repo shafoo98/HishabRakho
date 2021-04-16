@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hishab_rakho/list_widgets/wallet_list.dart';
 import 'package:hishab_rakho/models/wallet.dart';
-import 'package:hishab_rakho/list_widgets/add_wallet_form.dart';
+import 'package:hishab_rakho/add_forms/add_wallet_form.dart';
 import 'package:hishab_rakho/services/database.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +39,7 @@ class _WalletPageState extends State<WalletPage> {
     return ListView(children: [
       StreamProvider<List<Wallet>>.value(
         value: DatabaseService(uid: uid).wallets,
-        child: WalletList(),
+        child: WalletList(uid: uid),
       ),
       FlatButton.icon(
         icon: Icon(Icons.add_box),

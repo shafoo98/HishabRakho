@@ -4,7 +4,7 @@ class Wallet {
   int walletValue;
   DateTime dateTime;
   String uid;
-  int walletId;
+  String walletId;
 
   Wallet(
       {this.walletName,

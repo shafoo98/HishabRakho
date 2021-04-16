@@ -4,11 +4,15 @@ import 'package:hishab_rakho/models/wallet.dart';
 import 'package:provider/provider.dart';
 
 class WalletList extends StatefulWidget {
+  final String uid;
+  WalletList({this.uid});
   @override
   _WalletListState createState() => _WalletListState();
 }
 
 class _WalletListState extends State<WalletList> {
+  final String uid;
+  _WalletListState({this.uid});
   @override
   Widget build(BuildContext context) {
     final wallets = Provider.of<List<Wallet>>(context) ?? [];
@@ -17,7 +21,7 @@ class _WalletListState extends State<WalletList> {
       physics: ScrollPhysics(),
       itemCount: wallets.length,
       itemBuilder: (context, index) {
-        return WalletTile(wallet: wallets[index]);
+        return WalletTile(uid: uid, wallet: wallets[index]);
       },
     );
   }

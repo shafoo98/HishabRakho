@@ -17,7 +17,7 @@ class DatabaseService {
       FirebaseFirestore.instance.collection('Budgets');
 
   Future addWalletData(String walletName, String walletDescription,
-      int walletValue, var dateAdded, String uid, int walletId) async {
+      int walletValue, var dateAdded, String uid, String walletId) async {
     dateAdded = DateTime.now();
     return await walletCollection.add({
       'walletName': walletName,
@@ -27,6 +27,32 @@ class DatabaseService {
       'uid': uid,
       'walletId': walletId,
     });
+  }
+
+  Future deleteWalletData(String walletId) {
+    return walletCollection
+        .where('walletId', isEqualTo: walletId)
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              walletCollection
+                  .doc(element.id)
+                  .delete()
+                  .then((value) => print('Deleted'));
+            }));
+  }
+
+  Future editWalletData(String walletName, String walletDescription,
+      int walletValue, String walletId) {
+    return walletCollection
+        .where('walletId', isEqualTo: walletId)
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              walletCollection.doc(element.id).update({
+                'walletName': walletName,
+                'walletDescription': walletDescription,
+                'walletValue': walletValue
+              }).then((value) => print('Data updated'));
+            }));
   }
 
   List<Wallet> _walletListFromSnapshot(QuerySnapshot snapshot) {
