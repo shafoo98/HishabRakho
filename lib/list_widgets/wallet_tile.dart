@@ -9,7 +9,7 @@ class WalletTile extends StatelessWidget {
   final String uid;
   WalletTile({this.wallet, this.uid});
 
-  void _editWalletPanel(String uid, BuildContext context) {
+  void _editWalletPanel(String uid, String walletId, BuildContext context) {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -58,10 +58,11 @@ class WalletTile extends StatelessWidget {
                   DatabaseService(uid: uid).deleteWalletData(wallet.walletId),
             ),
             IconSlideAction(
-                caption: 'Edit',
-                color: Colors.green,
-                icon: Icons.edit,
-                onTap: () => _editWalletPanel(uid, context)),
+              caption: 'Edit',
+              color: Colors.green,
+              icon: Icons.edit,
+              onTap: () => _editWalletPanel(uid, wallet.walletId, context),
+            ),
           ],
           child: ListTile(
             leading: Icon(Icons.account_balance_wallet),
