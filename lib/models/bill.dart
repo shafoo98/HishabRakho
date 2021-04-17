@@ -4,11 +4,13 @@ class Bill {
   int billValue;
   DateTime dateTime;
   String uid;
+  String billId;
 
   Bill(
       {this.billName,
       this.billDescription,
       this.billValue,
       this.dateTime,
-      this.uid});
+      this.uid,
+      this.billId});
 }

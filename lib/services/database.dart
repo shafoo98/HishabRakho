@@ -76,7 +76,7 @@ class DatabaseService {
   }
 
   Future addUserBillsData(String billName, String billDescription,
-      int billValue, var dateAdded, String uid) async {
+      int billValue, var dateAdded, String uid, String billId) async {
     dateAdded = DateTime.now();
     return await billsCollection.add({
       'billName': billName,
@@ -84,7 +84,34 @@ class DatabaseService {
       'billValue': billValue,
       'dateAdded': dateAdded,
       'uid': uid,
+      'billId': billId,
     });
+  }
+
+  Future deleteBillData(String billId) {
+    return billsCollection
+        .where('billId', isEqualTo: billId)
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              billsCollection
+                  .doc(element.id)
+                  .delete()
+                  .then((value) => print('Deleted'));
+            }));
+  }
+
+  Future editBillData(
+      String billName, String billDescription, int billValue, String billId) {
+    return billsCollection
+        .where('billId', isEqualTo: billId)
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              billsCollection.doc(element.id).update({
+                'billName': billName,
+                'billDescription': billDescription,
+                'billValue': billValue
+              }).then((value) => print('Data updated'));
+            }));
   }
 
   List<Bill> _billListFromSnapshot(QuerySnapshot snapshot) {
@@ -94,7 +121,8 @@ class DatabaseService {
           billDescription:
               doc.data()['billDescription'] ?? 'Example Description',
           billValue: doc.data()['billValue'] ?? 100,
-          uid: doc.data()['uid']);
+          uid: doc.data()['uid'],
+          billId: doc.data()['billId']);
     }).toList();
   }
 

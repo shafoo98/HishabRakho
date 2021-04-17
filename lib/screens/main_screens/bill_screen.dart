@@ -39,7 +39,7 @@ class _BillPageState extends State<BillPage> {
     return ListView(children: [
       StreamProvider<List<Bill>>.value(
         value: DatabaseService(uid: uid).bills,
-        child: BillList(),
+        child: BillList(uid: uid),
       ),
       FlatButton.icon(
         icon: Icon(Icons.add_box),

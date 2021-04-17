@@ -1,10 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hishab_rakho/edit_forms/edit_bill_form.dart';
 import 'package:hishab_rakho/models/bill.dart';
+import 'package:hishab_rakho/services/database.dart';
 
 class BillTile extends StatelessWidget {
   final Bill bill;
-  BillTile({this.bill});
+  final String uid;
+  BillTile({this.bill, this.uid});
+
+  void _editBillPanel(String billId, BuildContext context) {
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+        ),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Container(
+              child: EditBillForm(
+                uid: uid,
+                billId: bill.billId,
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -28,13 +54,16 @@ class BillTile extends StatelessWidget {
               caption: 'Delete',
               color: Colors.red,
               icon: Icons.delete,
-              onTap: () => print('Deleted'),
+              onTap: () =>
+                  DatabaseService(uid: uid).deleteBillData(bill.billId),
             ),
             IconSlideAction(
               caption: 'Edit',
               color: Colors.green,
               icon: Icons.edit,
-              onTap: () => print("Edit"),
+              onTap: () {
+                _editBillPanel(bill.billId, context);
+              },
             ),
           ],
           child: ListTile(

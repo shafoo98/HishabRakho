@@ -1,37 +1,28 @@
-import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hishab_rakho/services/database.dart';
 
-class AddBillForm extends StatefulWidget {
+class EditBillForm extends StatefulWidget {
   final String uid;
-  AddBillForm({this.uid});
+  final String billId;
+  EditBillForm({this.uid, this.billId});
   @override
-  _AddBillFormState createState() => _AddBillFormState(uid: uid);
+  _EditBillFormState createState() =>
+      _EditBillFormState(uid: uid, billId: billId);
 }
 
-class _AddBillFormState extends State<AddBillForm> {
+class _EditBillFormState extends State<EditBillForm> {
   final String uid;
-  _AddBillFormState({this.uid});
+  final String billId;
+  _EditBillFormState({this.uid, this.billId});
   final _formKey = GlobalKey<FormState>();
-
   String _billName;
   String _billDescription;
   int _billValue;
-  DateTime _dateAdded = DateTime.now();
   String error = '';
-  String createCryptoRandomString(int len) {
-    final Random _random = Random.secure();
-    var values = List<int>.generate(len, (i) => _random.nextInt(256));
-
-    return base64Url.encode(values);
-  }
-
   @override
   Widget build(BuildContext context) {
-    String _billId = createCryptoRandomString(7);
     final Size size = MediaQuery.of(context).size;
-    final DatabaseService _dbService = DatabaseService();
+    final DatabaseService _dbService = DatabaseService(uid: uid);
     return Form(
       key: _formKey,
       child: Column(
@@ -41,7 +32,7 @@ class _AddBillFormState extends State<AddBillForm> {
           Padding(
             padding: EdgeInsets.only(top: size.height * 0.02),
             child: Text(
-              'Add an expense here',
+              'Edit your expense here',
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
           ),
@@ -52,7 +43,7 @@ class _AddBillFormState extends State<AddBillForm> {
             maxLength: 50,
             decoration: InputDecoration(
               prefixIcon: Icon(Icons.edit),
-              hintText: 'Name of expense or bill',
+              hintText: 'Name of bill or expense',
               fillColor: Colors.white,
               filled: true,
               enabledBorder: OutlineInputBorder(
@@ -127,8 +118,8 @@ class _AddBillFormState extends State<AddBillForm> {
           RaisedButton(
             onPressed: () async {
               if (_formKey.currentState.validate()) {
-                dynamic result = await _dbService.addUserBillsData(_billName,
-                    _billDescription, _billValue, _dateAdded, uid, _billId);
+                dynamic result = await _dbService.editBillData(
+                    _billName, _billDescription, _billValue, billId);
                 if (result == null) {
                   setState(() {
                     error = "Something went wrong";
@@ -139,7 +130,7 @@ class _AddBillFormState extends State<AddBillForm> {
             },
             elevation: 5.0,
             child: Text(
-              'Add Expense',
+              'Edit Bill',
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w100,
