@@ -1,11 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:hishab_rakho/edit_forms/edit_budget_form.dart';
 import 'package:hishab_rakho/models/budget.dart';
+import 'package:hishab_rakho/services/database.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class BudgetTile extends StatelessWidget {
   final Budget budget;
-  BudgetTile({this.budget});
+  final String uid;
+  BudgetTile({this.budget, this.uid});
+
+  void _editBudgetPanel(String budgetId, BuildContext context) {
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0), topRight: Radius.circular(30.0)),
+        ),
+        isScrollControlled: true,
+        context: context,
+        builder: (context) {
+          return Padding(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: Container(
+              child: EditBudgetForm(
+                uid: uid,
+                budgetId: budget.budgetId,
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -29,7 +55,8 @@ class BudgetTile extends StatelessWidget {
               caption: 'Delete',
               color: Colors.red,
               icon: Icons.delete,
-              onTap: () => print('Deleted'),
+              onTap: () =>
+                  DatabaseService(uid: uid).deleteBudgetsData(budget.budgetId),
             ),
             IconSlideAction(
               caption: 'Edit',

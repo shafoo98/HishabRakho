@@ -146,6 +146,32 @@ class DatabaseService {
     });
   }
 
+  Future deleteBudgetsData(String budgetId) {
+    return budgetsCollection
+        .where('budgetId', isEqualTo: budgetId)
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              billsCollection
+                  .doc(element.id)
+                  .delete()
+                  .then((value) => print('Deleted'));
+            }));
+  }
+
+  Future editBudgetsData(String budgetName, String budgetDescription,
+      int budgetValue, String budgetId) {
+    return budgetsCollection
+        .where('budgetId', isEqualTo: budgetId)
+        .get()
+        .then((value) => value.docs.forEach((element) {
+              billsCollection.doc(element.id).update({
+                'budgetName': budgetName,
+                'budgetDescription': budgetDescription,
+                'budgetValue': budgetValue
+              }).then((value) => print('Data updated'));
+            }));
+  }
+
   List<Budget> _budgetListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Budget(
@@ -153,7 +179,8 @@ class DatabaseService {
           budgetDescription:
               doc.data()['budgetDescription'] ?? 'Example Description',
           budgetValue: doc.data()['budgetValue'] ?? 100,
-          uid: doc.data()['uid']);
+          uid: doc.data()['uid'],
+          budgetId: doc.data()['budgetId']);
     }).toList();
   }
 
