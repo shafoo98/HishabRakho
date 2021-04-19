@@ -62,7 +62,7 @@ class BudgetTile extends StatelessWidget {
               caption: 'Edit',
               color: Colors.green,
               icon: Icons.edit,
-              onTap: () => print("Edit"),
+              onTap: () => _editBudgetPanel(budget.budgetId, context),
             ),
           ],
           child: ListTile(
