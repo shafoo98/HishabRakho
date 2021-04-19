@@ -29,7 +29,7 @@ class _AddBillFormState extends State<AddBillForm> {
 
   @override
   Widget build(BuildContext context) {
-    String _billId = createCryptoRandomString(7);
+    String _billId = createCryptoRandomString(6);
     final Size size = MediaQuery.of(context).size;
     final DatabaseService _dbService = DatabaseService();
     return Form(

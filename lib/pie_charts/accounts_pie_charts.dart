@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pie_chart/pie_chart.dart';
 
 class AccountsPieChart extends StatefulWidget {
   @override

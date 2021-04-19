@@ -135,7 +135,7 @@ class DatabaseService {
   }
 
   Future addUserBudgetsData(String budgetName, String budgetDescription,
-      int budgetValue, var dateAdded, String uid) async {
+      int budgetValue, var dateAdded, String uid, String budgetId) async {
     dateAdded = DateTime.now();
     return await budgetsCollection.add({
       'budgetName': budgetName,
@@ -143,6 +143,7 @@ class DatabaseService {
       'budgetValue': budgetValue,
       'dateAdded': dateAdded,
       'uid': uid,
+      'budgetId': budgetId,
     });
   }
 
@@ -151,7 +152,7 @@ class DatabaseService {
         .where('budgetId', isEqualTo: budgetId)
         .get()
         .then((value) => value.docs.forEach((element) {
-              billsCollection
+              budgetsCollection
                   .doc(element.id)
                   .delete()
                   .then((value) => print('Deleted'));
@@ -164,7 +165,7 @@ class DatabaseService {
         .where('budgetId', isEqualTo: budgetId)
         .get()
         .then((value) => value.docs.forEach((element) {
-              billsCollection.doc(element.id).update({
+              budgetsCollection.doc(element.id).update({
                 'budgetName': budgetName,
                 'budgetDescription': budgetDescription,
                 'budgetValue': budgetValue
@@ -175,7 +176,7 @@ class DatabaseService {
   List<Budget> _budgetListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
       return Budget(
-          budgetName: doc.data()['budgetName'] ?? 'Example Expense',
+          budgetName: doc.data()['budgetName'] ?? 'Example Budget',
           budgetDescription:
               doc.data()['budgetDescription'] ?? 'Example Description',
           budgetValue: doc.data()['budgetValue'] ?? 100,

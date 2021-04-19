@@ -21,7 +21,7 @@ class _BudgetListState extends State<BudgetList> {
       physics: ScrollPhysics(),
       itemCount: budgets.length,
       itemBuilder: (context, index) {
-        return BudgetTile(budget: budgets[index]);
+        return BudgetTile(uid: uid, budget: budgets[index]);
       },
     );
   }

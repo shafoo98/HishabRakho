@@ -116,7 +116,7 @@ class _EditBudgetFormState extends State<EditBudgetForm> {
           RaisedButton(
             onPressed: () async {
               if (_formKey.currentState.validate()) {
-                dynamic result = await _dbService.editBillData(
+                dynamic result = await _dbService.editBudgetsData(
                     _budgetName, _budgetDescription, _budgetValue, budgetId);
                 if (result == null) {
                   setState(() {
@@ -128,7 +128,7 @@ class _EditBudgetFormState extends State<EditBudgetForm> {
             },
             elevation: 5.0,
             child: Text(
-              'Edit Bill',
+              'Edit Budget',
               style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w100,

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:hishab_rakho/services/database.dart';
 
@@ -18,9 +21,16 @@ class _AddBudgetFormState extends State<AddBudgetForm> {
   int _budgetValue;
   DateTime _dateAdded = DateTime.now();
   String error = '';
+  String createCryptoRandomString(int len) {
+    final Random _random = Random.secure();
+    var values = List<int>.generate(len, (i) => _random.nextInt(256));
+
+    return base64Url.encode(values);
+  }
 
   @override
   Widget build(BuildContext context) {
+    String _budgetId = createCryptoRandomString(4);
     final Size size = MediaQuery.of(context).size;
     final DatabaseService _dbService = DatabaseService();
     return Form(
@@ -121,7 +131,8 @@ class _AddBudgetFormState extends State<AddBudgetForm> {
                     _budgetDescription,
                     _budgetValue,
                     _dateAdded,
-                    uid);
+                    uid,
+                    _budgetId);
                 if (result == null) {
                   setState(() {
                     error = "Something went wrong";
