@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lottie/lottie.dart';
 
 class Loading extends StatelessWidget {
   @override
@@ -7,9 +7,8 @@ class Loading extends StatelessWidget {
     return Container(
       color: Color.fromRGBO(73, 118, 185, 1.0),
       child: Center(
-        child: SpinKitWave(
-          color: Colors.white,
-          size: 50.0,
+        child: Lottie.asset(
+          'animation_assets/25227-accountant.json',
         ),
       ),
     );
