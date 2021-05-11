@@ -48,7 +48,8 @@ class BillTile extends StatelessWidget {
               caption: 'Share',
               color: Colors.white,
               icon: Icons.share,
-              onTap: () => print("Shared"),
+              onTap: () =>
+                  DatabaseService(uid: uid).changeIsShared(bill.billId),
             ),
             IconSlideAction(
               caption: 'Delete',

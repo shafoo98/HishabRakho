@@ -4,6 +4,7 @@ import 'package:hishab_rakho/screens/main_screens/bill_screen.dart';
 import 'package:hishab_rakho/screens/main_screens/budget_screen.dart';
 import 'package:hishab_rakho/screens/main_screens/settings_screen.dart';
 import 'package:hishab_rakho/screens/main_screens/overview.dart';
+import 'package:hishab_rakho/screens/main_screens/shared_bills_screen.dart';
 import 'package:hishab_rakho/screens/main_screens/wallets_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = Provider.of<MyUser>(context);
     return DefaultTabController(
-      length: 5,
+      length: 6,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(73, 118, 185, 1.0),
@@ -22,36 +23,44 @@ class Home extends StatelessWidget {
             tabs: [
               Tab(
                 child: Text(
-                  "Overview",
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                  "Home",
+                  style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold),
                 ),
                 icon: Icon(Icons.donut_small),
               ), //overview
               Tab(
                 child: Text(
                   "Wallet",
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold),
                 ),
                 icon: Icon(Icons.account_balance_wallet),
               ), //wallet
               Tab(
                 child: Text(
                   "Bills",
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold),
                 ),
                 icon: Icon(Icons.receipt),
               ), //bills
               Tab(
                 child: Text(
-                  "Budgets",
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                  "Budget",
+                  style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold),
                 ),
                 icon: Icon(Icons.payment),
-              ), //budgtes
+              ),
+              Tab(
+                child: Text(
+                  "Bills Leaderboard",
+                  style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold),
+                ),
+                icon: Icon(Icons.folder_shared),
+              ),
+              //budgets
               Tab(
                 child: Text(
                   "Settings",
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold),
                 ),
                 icon: Icon(Icons.settings),
               ), //settings
@@ -64,6 +73,7 @@ class Home extends StatelessWidget {
             WalletPage(uid: user.uid),
             BillPage(uid: user.uid),
             BudgetPage(uid: user.uid),
+            SharedBillPage(uid: user.uid),
             Settings(),
           ],
         ),

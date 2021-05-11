@@ -5,6 +5,7 @@ class Budget {
   DateTime dateTime;
   String uid;
   String budgetId;
+  bool isShared = false;
 
   Budget(
       {this.budgetName,
@@ -12,5 +13,6 @@ class Budget {
       this.budgetValue,
       this.dateTime,
       this.uid,
-      this.budgetId});
+      this.budgetId,
+      this.isShared});
 }

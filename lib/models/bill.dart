@@ -5,6 +5,7 @@ class Bill {
   DateTime dateTime;
   String uid;
   String billId;
+  bool isShared;
 
   Bill(
       {this.billName,
@@ -12,5 +13,6 @@ class Bill {
       this.billValue,
       this.dateTime,
       this.uid,
-      this.billId});
+      this.billId,
+      this.isShared});
 }

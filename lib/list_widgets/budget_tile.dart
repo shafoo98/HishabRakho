@@ -49,7 +49,7 @@ class BudgetTile extends StatelessWidget {
               caption: 'Share',
               color: Colors.white,
               icon: Icons.share,
-              onTap: () => print("Shared"),
+              onTap: () => budget.isShared = true,
             ),
             IconSlideAction(
               caption: 'Delete',

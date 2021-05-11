@@ -75,8 +75,14 @@ class DatabaseService {
         .map(_walletListFromSnapshot);
   }
 
-  Future addUserBillsData(String billName, String billDescription,
-      int billValue, var dateAdded, String uid, String billId) async {
+  Future addUserBillsData(
+      String billName,
+      String billDescription,
+      int billValue,
+      var dateAdded,
+      String uid,
+      String billId,
+      bool isShared) async {
     dateAdded = DateTime.now();
     return await billsCollection.add({
       'billName': billName,
@@ -85,6 +91,7 @@ class DatabaseService {
       'dateAdded': dateAdded,
       'uid': uid,
       'billId': billId,
+      'isShared': isShared
     });
   }
 
@@ -122,7 +129,8 @@ class DatabaseService {
               doc.data()['billDescription'] ?? 'Example Description',
           billValue: doc.data()['billValue'] ?? 100,
           uid: doc.data()['uid'],
-          billId: doc.data()['billId']);
+          billId: doc.data()['billId'],
+          isShared: doc.data()['isShared']);
     }).toList();
   }
 
@@ -132,6 +140,39 @@ class DatabaseService {
         .orderBy('dateAdded', descending: true)
         .snapshots()
         .map(_billListFromSnapshot);
+  }
+
+  Future changeIsShared(
+    String billId,
+  ) {
+    return billsCollection.where('billId', isEqualTo: billId).get().then(
+          (value) => value.docs.forEach((element) {
+            billsCollection.doc(element.id).update({
+              'isShared': true,
+            }).then(
+              (value) => print("Shared"),
+            );
+          }),
+        );
+  }
+
+  Stream<List<Bill>> get sharedBills {
+    return billsCollection
+        .where('isShared', isEqualTo: true)
+        .snapshots()
+        .map(_sharedBillListFromSnapshot);
+  }
+
+  List<Bill> _sharedBillListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Bill(
+          billName: doc.data()['billName'] ?? 'Example Expense',
+          billDescription:
+              doc.data()['billDescription'] ?? 'Example Description',
+          billValue: doc.data()['billValue'] ?? 100,
+          uid: doc.data()['uid'],
+          billId: doc.data()['billId']);
+    }).toList();
   }
 
   Future addUserBudgetsData(String budgetName, String budgetDescription,

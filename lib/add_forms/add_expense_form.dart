@@ -19,6 +19,7 @@ class _AddBillFormState extends State<AddBillForm> {
   String _billDescription;
   int _billValue;
   DateTime _dateAdded = DateTime.now();
+  bool _isShared = false;
   String error = '';
   String createCryptoRandomString(int len) {
     final Random _random = Random.secure();
@@ -127,8 +128,14 @@ class _AddBillFormState extends State<AddBillForm> {
           RaisedButton(
             onPressed: () async {
               if (_formKey.currentState.validate()) {
-                dynamic result = await _dbService.addUserBillsData(_billName,
-                    _billDescription, _billValue, _dateAdded, uid, _billId);
+                dynamic result = await _dbService.addUserBillsData(
+                    _billName,
+                    _billDescription,
+                    _billValue,
+                    _dateAdded,
+                    uid,
+                    _billId,
+                    _isShared);
                 if (result == null) {
                   setState(() {
                     error = "Something went wrong";
