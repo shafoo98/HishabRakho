@@ -43,16 +43,29 @@ class DatabaseService {
 
   Future editWalletData(String walletName, String walletDescription,
       int walletValue, String walletId) {
-    return walletCollection
-        .where('walletId', isEqualTo: walletId)
-        .get()
-        .then((value) => value.docs.forEach((element) {
-              walletCollection.doc(element.id).update({
-                'walletName': walletName,
-                'walletDescription': walletDescription,
-                'walletValue': walletValue
-              }).then((value) => print('Data updated'));
-            }));
+    return walletCollection.where('walletId', isEqualTo: walletId).get().then(
+          (value) => value.docs.forEach((element) {
+            walletCollection.doc(element.id).update({
+              'walletName': walletName,
+              'walletDescription': walletDescription,
+              'walletValue': walletValue
+            }).then(
+              (value) => print('Data updated'),
+            );
+          }),
+        );
+  }
+
+  Future changeWalletValueAfterExpense(
+      String walletId, int updatedWalletValue) {
+    return walletCollection.where('walletId', isEqualTo: walletId).get().then(
+          (value) => value.docs.forEach((element) {
+            walletCollection
+                .doc(element.id)
+                .update({'walletValue': updatedWalletValue}).then(
+                    (value) => print('Done'));
+          }),
+        );
   }
 
   List<Wallet> _walletListFromSnapshot(QuerySnapshot snapshot) {

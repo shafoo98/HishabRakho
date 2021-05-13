@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:hishab_rakho/screens/main_screens/payable_wallets_screen.dart';
 import 'package:hishab_rakho/services/database.dart';
 
 class AddBillForm extends StatefulWidget {
@@ -14,10 +15,9 @@ class _AddBillFormState extends State<AddBillForm> {
   final String uid;
   _AddBillFormState({this.uid});
   final _formKey = GlobalKey<FormState>();
-
   String _billName;
   String _billDescription;
-  int _billValue;
+  int billValue;
   DateTime _dateAdded = DateTime.now();
   bool _isShared = false;
   String error = '';
@@ -99,7 +99,7 @@ class _AddBillFormState extends State<AddBillForm> {
             ),
           ),
           SizedBox(
-            height: size.height * 0.015,
+            height: size.height * 0.005,
           ),
           TextFormField(
             maxLines: 1,
@@ -118,12 +118,19 @@ class _AddBillFormState extends State<AddBillForm> {
                 : null,
             onChanged: (value) {
               setState(() {
-                _billValue = int.parse(value);
+                billValue = int.parse(value);
               });
             },
           ),
           SizedBox(
-            height: size.height * 0.025,
+            height: size.height * 0.015,
+          ),
+          PayableWalletsPage(
+            uid: uid,
+            expenseValue: billValue,
+          ),
+          SizedBox(
+            height: size.height * 0.0025,
           ),
           RaisedButton(
             onPressed: () async {
@@ -131,7 +138,7 @@ class _AddBillFormState extends State<AddBillForm> {
                 dynamic result = await _dbService.addUserBillsData(
                     _billName,
                     _billDescription,
-                    _billValue,
+                    billValue,
                     _dateAdded,
                     uid,
                     _billId,
