@@ -19,6 +19,7 @@ class _AddBillFormState extends State<AddBillForm> {
   int _billValue;
   DateTime _dateAdded = DateTime.now();
   bool _isShared = false;
+  bool billValueSubmitted = true;
   String error = '';
   String createCryptoRandomString(int len) {
     final Random _random = Random.secure();
@@ -101,6 +102,7 @@ class _AddBillFormState extends State<AddBillForm> {
             height: size.height * 0.005,
           ),
           TextFormField(
+            onEditingComplete: () => billValueSubmitted = true,
             maxLines: 1,
             keyboardType: TextInputType.number,
             decoration: InputDecoration(
