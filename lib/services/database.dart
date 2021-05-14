@@ -188,16 +188,25 @@ class DatabaseService {
     }).toList();
   }
 
-  Future addUserBudgetsData(String budgetName, String budgetDescription,
-      int budgetValue, var dateAdded, String uid, String budgetId) async {
+  Future addUserBudgetsData(
+      String budgetName,
+      String budgetDescription,
+      int budgetValue,
+      int limit,
+      var dateAdded,
+      String uid,
+      String budgetId,
+      bool isShared) async {
     dateAdded = DateTime.now();
     return await budgetsCollection.add({
       'budgetName': budgetName,
       'budgetDescription': budgetDescription,
       'budgetValue': budgetValue,
+      'limit': limit,
       'dateAdded': dateAdded,
       'uid': uid,
       'budgetId': budgetId,
+      'isShared': isShared,
     });
   }
 
@@ -214,7 +223,7 @@ class DatabaseService {
   }
 
   Future editBudgetsData(String budgetName, String budgetDescription,
-      int budgetValue, String budgetId) {
+      int budgetValue, int limit, String budgetId) {
     return budgetsCollection
         .where('budgetId', isEqualTo: budgetId)
         .get()
@@ -222,7 +231,8 @@ class DatabaseService {
               budgetsCollection.doc(element.id).update({
                 'budgetName': budgetName,
                 'budgetDescription': budgetDescription,
-                'budgetValue': budgetValue
+                'budgetValue': budgetValue,
+                'limit': limit,
               }).then((value) => print('Data updated'));
             }));
   }
@@ -234,6 +244,7 @@ class DatabaseService {
           budgetDescription:
               doc.data()['budgetDescription'] ?? 'Example Description',
           budgetValue: doc.data()['budgetValue'] ?? 100,
+          limit: doc.data()['limit'] ?? 0,
           uid: doc.data()['uid'],
           budgetId: doc.data()['budgetId']);
     }).toList();

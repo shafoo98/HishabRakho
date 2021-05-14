@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hishab_rakho/services/database.dart';
 
@@ -19,7 +18,9 @@ class _AddBudgetFormState extends State<AddBudgetForm> {
   String _budgetName;
   String _budgetDescription;
   int _budgetValue;
+  int _limit;
   DateTime _dateAdded = DateTime.now();
+  bool _isShared = false;
   String error = '';
   String createCryptoRandomString(int len) {
     final Random _random = Random.secure();
@@ -98,7 +99,7 @@ class _AddBudgetFormState extends State<AddBudgetForm> {
             ),
           ),
           SizedBox(
-            height: size.height * 0.015,
+            height: size.height * 0.005,
           ),
           TextFormField(
             maxLines: 1,
@@ -121,7 +122,31 @@ class _AddBudgetFormState extends State<AddBudgetForm> {
             },
           ),
           SizedBox(
-            height: size.height * 0.025,
+            height: size.height * 0.01,
+          ),
+          TextFormField(
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.monetization_on),
+              hintText: 'Please set a limit for your budget',
+              fillColor: Colors.white,
+              filled: true,
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black54, width: 1.0),
+              ),
+            ),
+            validator: (value) => value.isEmpty
+                ? 'Please enter an amount' + ' for budget limit'
+                : null,
+            onChanged: (value) {
+              setState(() {
+                _limit = int.parse(value);
+              });
+            },
+          ),
+          SizedBox(
+            height: size.height * 0.01,
           ),
           RaisedButton(
             onPressed: () async {
@@ -130,9 +155,11 @@ class _AddBudgetFormState extends State<AddBudgetForm> {
                     _budgetName,
                     _budgetDescription,
                     _budgetValue,
+                    _limit,
                     _dateAdded,
                     uid,
-                    _budgetId);
+                    _budgetId,
+                    _isShared);
                 if (result == null) {
                   setState(() {
                     error = "Something went wrong";

@@ -18,6 +18,7 @@ class _EditBudgetFormState extends State<EditBudgetForm> {
   String _budgetName;
   String _budgetDescription;
   int _budgetValue;
+  int _limit;
   String error = '';
   @override
   Widget build(BuildContext context) {
@@ -59,10 +60,10 @@ class _EditBudgetFormState extends State<EditBudgetForm> {
             },
           ),
           SizedBox(
-            height: size.height * 0.015,
+            height: size.height * 0.01,
           ),
           SizedBox(
-            height: size.height * 0.15,
+            height: size.height * 0.125,
             child: TextFormField(
               maxLength: 250,
               expands: true,
@@ -88,7 +89,7 @@ class _EditBudgetFormState extends State<EditBudgetForm> {
             ),
           ),
           SizedBox(
-            height: size.height * 0.015,
+            height: size.height * 0.01,
           ),
           TextFormField(
             maxLines: 1,
@@ -111,13 +112,37 @@ class _EditBudgetFormState extends State<EditBudgetForm> {
             },
           ),
           SizedBox(
-            height: size.height * 0.025,
+            height: size.height * 0.015,
+          ),
+          TextFormField(
+            maxLines: 1,
+            keyboardType: TextInputType.number,
+            decoration: InputDecoration(
+              prefixIcon: Icon(Icons.monetization_on),
+              hintText: 'Please set a limit for your budget',
+              fillColor: Colors.white,
+              filled: true,
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black54, width: 1.0),
+              ),
+            ),
+            validator: (value) => value.isEmpty
+                ? 'Please enter an amount' + ' for budget limit'
+                : null,
+            onChanged: (value) {
+              setState(() {
+                _limit = int.parse(value);
+              });
+            },
+          ),
+          SizedBox(
+            height: size.height * 0.005,
           ),
           RaisedButton(
             onPressed: () async {
               if (_formKey.currentState.validate()) {
-                dynamic result = await _dbService.editBudgetsData(
-                    _budgetName, _budgetDescription, _budgetValue, budgetId);
+                dynamic result = await _dbService.editBudgetsData(_budgetName,
+                    _budgetDescription, _budgetValue, _limit, budgetId);
                 if (result == null) {
                   setState(() {
                     error = "Something went wrong";

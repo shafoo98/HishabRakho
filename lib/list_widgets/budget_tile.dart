@@ -35,6 +35,9 @@ class BudgetTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final double percentageDifferenceofBudget =
+        (budget.budgetValue.toDouble() - budget.limit.toDouble()) /
+            budget.budgetValue.toDouble();
     return Padding(
       padding: EdgeInsets.only(top: size.height * 0.01),
       child: Card(
@@ -66,41 +69,86 @@ class BudgetTile extends StatelessWidget {
             ),
           ],
           child: ListTile(
-            leading: Icon(Icons.assessment),
-            title: Padding(
-              padding: EdgeInsets.only(bottom: size.height * 0.005),
-              child: Text(budget.budgetName),
-            ),
-            subtitle: LinearPercentIndicator(
-              percent: 0.5,
-              center: Text("\$ " + '${budget.budgetValue}'),
-              lineHeight: size.height * 0.025,
-              animation: true,
-              animationDuration: 2500,
-              progressColor: Colors.green,
-              linearStrokeCap: LinearStrokeCap.roundAll,
-              animateFromLastPercent: true,
-            ),
-            onTap: () {
-              showDialog(
-                context: context,
-                child: AlertDialog(
-                  title: Text(budget.budgetName),
-                  content: Text(budget.budgetDescription +
-                      '\n \n' +
-                      'Amount: ' +
-                      budget.budgetValue.toString()),
-                  elevation: 5.0,
-                  actions: [
-                    FlatButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text('OK'),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
+              leading: Icon(Icons.assessment),
+              title: Padding(
+                padding: EdgeInsets.only(bottom: size.height * 0.005),
+                child: Text(budget.budgetName),
+              ),
+              subtitle: LinearPercentIndicator(
+                percent: percentageDifferenceofBudget,
+                animation: true,
+                progressColor: percentageDifferenceofBudget <= 0.5
+                    ? Colors.red
+                    : Colors.green,
+                center: Text("\$ " + '${budget.budgetValue}'),
+                lineHeight: size.height * 0.025,
+                linearStrokeCap: LinearStrokeCap.roundAll,
+              ),
+              onTap: () {
+                percentageDifferenceofBudget > 0
+                    ? showDialog(
+                        context: context,
+                        child: AlertDialog(
+                          title: Text(budget.budgetName),
+                          content: Text(
+                            budget.budgetDescription +
+                                '\n \n' +
+                                'Amount: ' +
+                                budget.budgetValue.toString() +
+                                '\n \n' +
+                                'Limit: ' +
+                                budget.limit.toString(),
+                          ),
+                          elevation: 5.0,
+                          actions: [
+                            FlatButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: Text('OK'),
+                            ),
+                          ],
+                        ),
+                      )
+                    : showDialog(
+                        context: context,
+                        child: AlertDialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          backgroundColor: Colors.blue[50],
+                          titleTextStyle: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28.0,
+                          ),
+                          title: Text(budget.budgetName),
+                          content: Text(
+                            budget.budgetDescription +
+                                '\n' +
+                                '\n' +
+                                'Limit has been reached for this budget. ' +
+                                '\n' +
+                                '\n' +
+                                'Please refill the budget if ' +
+                                'required using the edit option',
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
+                          ),
+                          elevation: 5.0,
+                          actions: [
+                            FlatButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: Text(
+                                'OK',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+              }),
         ),
       ),
     );
