@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:hishab_rakho/pie_charts/accounts_pie_charts.dart';
+import 'package:hishab_rakho/screens/home_screens/wallets_overview_page.dart';
 
-class Overview extends StatelessWidget {
+class Overview extends StatefulWidget {
+  final String uid;
+  Overview({this.uid});
+  @override
+  _OverviewState createState() => _OverviewState(uid: uid);
+}
+
+class _OverviewState extends State<Overview> {
+  final String uid;
+  _OverviewState({this.uid});
   @override
   Widget build(BuildContext context) {
     final PageController controller = PageController(initialPage: 0);
     return PageView(
-      /// [PageView.scrollDirection] defaults to [Axis.horizontal].
-      /// Use [Axis.vertical] to scroll vertically.
       scrollDirection: Axis.vertical,
       controller: controller,
       children: <Widget>[
         Center(
-          child: AccountsPieChart(),
+          child: WalletsOverviewPage(),
         ),
         Center(
           child: Text('Second Page'),
