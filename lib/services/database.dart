@@ -257,4 +257,37 @@ class DatabaseService {
         .snapshots()
         .map(_budgetListFromSnapshot);
   }
+
+  Future changeBudgetIsShared(
+    String budgetId,
+  ) {
+    return budgetsCollection.where('budgetId', isEqualTo: budgetId).get().then(
+          (value) => value.docs.forEach((element) {
+            budgetsCollection.doc(element.id).update({
+              'isShared': true,
+            }).then(
+              (value) => print("Shared"),
+            );
+          }),
+        );
+  }
+
+  Stream<List<Budget>> get sharedBudgets {
+    return budgetsCollection
+        .where('isShared', isEqualTo: true)
+        .snapshots()
+        .map(_sharedBudgetListFromSnapshot);
+  }
+
+  List<Budget> _sharedBudgetListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map((doc) {
+      return Budget(
+          budgetName: doc.data()['budgetName'] ?? 'Example Expense',
+          budgetDescription:
+              doc.data()['budgetDescription'] ?? 'Example Description',
+          budgetValue: doc.data()['budgetValue'] ?? 100,
+          uid: doc.data()['uid'],
+          budgetId: doc.data()['budgetId']);
+    }).toList();
+  }
 }

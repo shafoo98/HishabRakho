@@ -6,7 +6,7 @@ class Budget {
   DateTime dateTime;
   String uid;
   String budgetId;
-  bool isShared = false;
+  bool isShared;
 
   Budget(
       {this.budgetName,

@@ -52,7 +52,8 @@ class BudgetTile extends StatelessWidget {
               caption: 'Share',
               color: Colors.white,
               icon: Icons.share,
-              onTap: () => budget.isShared = true,
+              onTap: () => DatabaseService(uid: uid)
+                  .changeBudgetIsShared(budget.budgetId),
             ),
             IconSlideAction(
               caption: 'Delete',
