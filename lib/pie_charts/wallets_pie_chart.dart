@@ -23,7 +23,7 @@ class _WalletsPieChartState extends State<WalletsPieChart> {
 
   @override
   Widget build(BuildContext context) {
-    final allWallets = Provider.of<List<Wallet>>(context);
+    final allWallets = Provider.of<List<Wallet>>(context) ?? [];
     int sumOfWallets = sumOfAllWallets(walletsList: allWallets);
     Map<String, double> dataMap = Map.fromIterable(allWallets,
         key: (wallet) => wallet.walletName.toString(),
@@ -40,6 +40,7 @@ class _WalletsPieChartState extends State<WalletsPieChart> {
               padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.025),
               child: Card(
+                color: Color.fromRGBO(56, 198, 126, 0.75),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(
                     25.0,
@@ -50,10 +51,13 @@ class _WalletsPieChartState extends State<WalletsPieChart> {
                     horizontal: MediaQuery.of(context).size.width * 0.05),
                 elevation: 5.0,
                 child: Text(
-                  " Total : \$ " + sumOfWallets.toString(),
+                  " Wallets Total: \$" + sumOfWallets.toString(),
+                  maxLines: 1,
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 36,
+                      letterSpacing: 2.0,
+                      height: 1.5,
+                      fontSize: 25.0,
                       fontWeight: FontWeight.normal,
                       fontFamily: 'Montserrat'),
                 ),
@@ -72,6 +76,13 @@ class _WalletsPieChartState extends State<WalletsPieChart> {
               chartRadius: MediaQuery.of(context).size.width / 1.5,
               chartValuesOptions: ChartValuesOptions(
                 showChartValues: false,
+                chartValueStyle: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Montserrat',
+                  color: Colors.black,
+                  backgroundColor: Colors.blue[50],
+                ),
               ),
               legendOptions: LegendOptions(
                 showLegendsInRow: true,

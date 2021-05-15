@@ -18,60 +18,76 @@ class Home extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromRGBO(73, 118, 185, 1.0),
-          title: Text('Hishabh Rakho'),
+          title: Text(
+            'Hishabh Rakho',
+            style: TextStyle(
+                fontFamily: 'Montserrat',
+                fontSize: 24.0,
+                fontWeight: FontWeight.w600,
+                fontStyle: FontStyle.normal),
+          ),
           bottom: TabBar(
+            indicatorSize: TabBarIndicatorSize.label,
+            indicatorWeight: 5.0,
+            labelColor: Color.fromRGBO(219, 220, 240, 0.5),
+            unselectedLabelColor: Color.fromRGBO(209, 220, 240, 1.0),
+            isScrollable: true,
             indicatorColor: Colors.blueGrey[100],
             tabs: [
               Tab(
                 child: Text(
                   "Home",
-                  style: TextStyle(fontSize: 7.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
                 ),
                 icon: Icon(Icons.donut_small),
-              ), //overview
+              ),
               Tab(
                 child: Text(
                   "Wallets",
-                  style: TextStyle(fontSize: 7.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
                 ),
                 icon: Icon(Icons.account_balance_wallet),
-              ), //wallet
+              ),
               Tab(
                 child: Text(
                   "Bills",
-                  style: TextStyle(fontSize: 7.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
                 ),
                 icon: Icon(Icons.receipt),
-              ), //bills
+              ),
               Tab(
                 child: Text(
                   "Budgets",
-                  style: TextStyle(fontSize: 6.3, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
                 ),
                 icon: Icon(Icons.payment),
               ),
               Tab(
                 child: Text(
                   "Bills Leaderboard",
-                  style: TextStyle(fontSize: 7.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
                 ),
                 icon: Icon(Icons.folder_shared),
               ),
               Tab(
                 child: Text(
                   "Budgets Leaderboard",
-                  style: TextStyle(fontSize: 6.3, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                icon: Icon(Icons.folder_shared),
+                icon: Icon(
+                  Icons.folder_shared,
+                ),
               ),
-              //budgets
               Tab(
                 child: Text(
                   "Settings",
-                  style: TextStyle(fontSize: 6.3, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold),
                 ),
                 icon: Icon(Icons.settings),
-              ), //settings
+              ),
             ],
           ),
         ),

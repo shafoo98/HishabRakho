@@ -27,9 +27,6 @@ class _OverviewState extends State<Overview> {
         Center(
           child: Text('Third Page'),
         ),
-        Center(
-          child: Text('Fourth Page'),
-        )
       ],
     );
   }
