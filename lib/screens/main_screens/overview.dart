@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hishab_rakho/screens/home_screens/bills_overview_page.dart';
+import 'package:hishab_rakho/screens/home_screens/budgets_overview_page.dart';
 import 'package:hishab_rakho/screens/home_screens/wallets_overview_page.dart';
 
 class Overview extends StatefulWidget {
@@ -22,10 +24,10 @@ class _OverviewState extends State<Overview> {
           child: WalletsOverviewPage(),
         ),
         Center(
-          child: Text('Second Page'),
+          child: BillsOverviewPage(),
         ),
         Center(
-          child: Text('Third Page'),
+          child: BudgetsOverviewPage(),
         ),
       ],
     );
