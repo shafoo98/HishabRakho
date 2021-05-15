@@ -107,7 +107,7 @@ class _EditBudgetFormState extends State<EditBudgetForm> {
                 value.isEmpty ? 'Please enter an amount' + ' for budget' : null,
             onChanged: (value) {
               setState(() {
-                _budgetValue = int.parse(value);
+                _budgetValue = int.parse(value).abs();
               });
             },
           ),
@@ -131,7 +131,7 @@ class _EditBudgetFormState extends State<EditBudgetForm> {
                 : null,
             onChanged: (value) {
               setState(() {
-                _limit = int.parse(value);
+                _limit = int.parse(value).abs();
               });
             },
           ),

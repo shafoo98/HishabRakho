@@ -108,7 +108,7 @@ class _EditBillFormState extends State<EditBillForm> {
                 : null,
             onChanged: (value) {
               setState(() {
-                _billValue = int.parse(value);
+                _billValue = int.parse(value).abs();
               });
             },
           ),

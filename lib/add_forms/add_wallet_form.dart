@@ -117,7 +117,7 @@ class _AddWalletFormState extends State<AddWalletForm> {
                 : null,
             onChanged: (value) {
               setState(() {
-                _walletValue = int.parse(value);
+                _walletValue = (int.parse(value).abs());
               });
             },
           ),

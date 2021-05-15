@@ -119,7 +119,7 @@ class _AddBillFormState extends State<AddBillForm> {
                 : null,
             onChanged: (value) {
               setState(() {
-                _billValue = int.parse(value);
+                _billValue = int.parse(value).abs();
               });
             },
           ),
