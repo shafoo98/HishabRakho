@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hishab_rakho/services/auth.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
+  @override
+  _SettingsState createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
   final AuthService _authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -20,10 +26,11 @@ class Settings extends StatelessWidget {
           title: Text('About Us'),
         ),
         ListTile(
-          leading: Icon(Icons.people),
-          title: Text('Sign Out'),
-          onTap: () => _authService.signOut(),
-        ),
+            leading: Icon(Icons.people),
+            title: Text('Sign Out'),
+            onTap: () {
+              _authService.signOut();
+            }),
       ],
     );
   }

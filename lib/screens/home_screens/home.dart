@@ -93,7 +93,9 @@ class Home extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            Overview(),
+            Overview(
+              uid: user.uid,
+            ),
             WalletPage(uid: user.uid),
             BillPage(uid: user.uid),
             BudgetPage(uid: user.uid),

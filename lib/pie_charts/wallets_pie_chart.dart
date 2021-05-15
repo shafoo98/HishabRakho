@@ -67,31 +67,33 @@ class _WalletsPieChartState extends State<WalletsPieChart> {
           Padding(
             padding: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.035),
-            child: PieChart(
-              dataMap: dataMap ?? 0,
-              centerText: 'Wallets',
-              chartType: ChartType.ring,
-              ringStrokeWidth: 25.0,
-              chartLegendSpacing: 48,
-              chartRadius: MediaQuery.of(context).size.width / 1.5,
-              chartValuesOptions: ChartValuesOptions(
-                showChartValues: false,
-                chartValueStyle: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Montserrat',
-                  color: Colors.black,
-                  backgroundColor: Colors.blue[50],
+            child: Expanded(
+              child: PieChart(
+                dataMap: dataMap ?? 0,
+                centerText: 'Wallets',
+                chartType: ChartType.ring,
+                ringStrokeWidth: 25.0,
+                chartLegendSpacing: 48,
+                chartRadius: MediaQuery.of(context).size.width / 1.5,
+                chartValuesOptions: ChartValuesOptions(
+                  showChartValues: false,
+                  chartValueStyle: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Montserrat',
+                    color: Colors.black,
+                    backgroundColor: Colors.blue[50],
+                  ),
                 ),
-              ),
-              legendOptions: LegendOptions(
-                showLegendsInRow: true,
-                legendPosition: LegendPosition.bottom,
-                showLegends: true,
-                legendTextStyle: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12.0,
-                  fontFamily: 'Montserrat',
+                legendOptions: LegendOptions(
+                  showLegendsInRow: true,
+                  legendPosition: LegendPosition.bottom,
+                  showLegends: true,
+                  legendTextStyle: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 12.0,
+                    fontFamily: 'Montserrat',
+                  ),
                 ),
               ),
             ),
