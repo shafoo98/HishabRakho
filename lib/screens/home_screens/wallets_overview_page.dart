@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hishab_rakho/add_forms/add_expense_form.dart';
-import 'package:hishab_rakho/list_widgets/bills_list.dart';
-import 'package:hishab_rakho/models/bill.dart';
 import 'package:hishab_rakho/models/wallet.dart';
 import 'package:hishab_rakho/pie_charts/wallets_pie_chart.dart';
 import 'package:hishab_rakho/services/database.dart';
@@ -23,7 +20,7 @@ class _WalletsOverviewPageState extends State<WalletsOverviewPage> {
   Widget build(BuildContext context) {
     return StreamProvider<List<Wallet>>.value(
       value: DatabaseService(uid: uid).wallets,
-      //child: WalletsPieChart(uid: uid),
+      child: WalletsPieChart(uid: uid),
     );
   }
 }
