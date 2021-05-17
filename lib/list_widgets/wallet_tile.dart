@@ -45,12 +45,6 @@ class WalletTile extends StatelessWidget {
           actionExtentRatio: 1 / 4,
           actions: [
             IconSlideAction(
-              caption: 'Share',
-              color: Colors.white,
-              icon: Icons.share,
-              onTap: () => print("Shared"),
-            ),
-            IconSlideAction(
               caption: 'Delete',
               color: Colors.red,
               icon: Icons.delete,
