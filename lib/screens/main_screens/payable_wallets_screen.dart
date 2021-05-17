@@ -21,9 +21,7 @@ class _PayableWalletsPageState extends State<PayableWalletsPage> {
   Widget build(BuildContext context) {
     return StreamProvider<List<Wallet>>.value(
       value: DatabaseService(uid: uid).wallets,
-      child: Text(
-        expenseValue.toString(),
-      ),
+      child: Text(expenseValue.toString()),
     );
   }
 }

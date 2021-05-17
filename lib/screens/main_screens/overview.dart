@@ -21,13 +21,19 @@ class _OverviewState extends State<Overview> {
       controller: controller,
       children: <Widget>[
         Center(
-          child: WalletsOverviewPage(),
+          child: WalletsOverviewPage(
+            uid: uid,
+          ),
         ),
         Center(
-          child: BillsOverviewPage(),
+          child: BillsOverviewPage(
+            uid: uid,
+          ),
         ),
         Center(
-          child: BudgetsOverviewPage(),
+          child: BudgetsOverviewPage(
+            uid: uid,
+          ),
         ),
       ],
     );

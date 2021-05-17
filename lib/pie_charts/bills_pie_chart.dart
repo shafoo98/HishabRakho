@@ -32,7 +32,7 @@ class _BillsPieChartState extends State<BillsPieChart> {
         ? Container(
             child: Center(
               child: Text(
-                'No budgets found',
+                'No expenses found',
                 style: TextStyle(
                   fontSize: 24.0,
                   fontFamily: 'Montserrat',
