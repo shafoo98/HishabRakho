@@ -77,10 +77,10 @@ class _WalletsPieChartState extends State<WalletsPieChart> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.035),
-                  child: Expanded(
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).size.height * 0.1),
                     child: PieChart(
                       dataMap: dataMap ?? 0,
                       centerText: 'Wallets',
