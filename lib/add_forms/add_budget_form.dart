@@ -151,6 +151,9 @@ class _AddBudgetFormState extends State<AddBudgetForm> {
           RaisedButton(
             onPressed: () async {
               if (_formKey.currentState.validate()) {
+                if (_limit > _budgetValue) {
+                  _limit = 0;
+                }
                 dynamic result = await _dbService.addUserBudgetsData(
                     _budgetName,
                     _budgetDescription,

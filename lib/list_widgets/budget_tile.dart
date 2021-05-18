@@ -36,8 +36,10 @@ class BudgetTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final double percentageDifferenceofBudget =
-        (budget.budgetValue.toDouble() - budget.limit.toDouble()) /
-            budget.budgetValue.toDouble();
+        budget.budgetValue < budget.limit
+            ? budget.budgetValue.toDouble() / budget.budgetValue.toDouble()
+            : (budget.budgetValue.toDouble() - budget.limit.toDouble()) /
+                budget.budgetValue.toDouble();
     return Padding(
       padding: EdgeInsets.only(top: size.height * 0.01),
       child: Card(

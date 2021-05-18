@@ -141,6 +141,9 @@ class _EditBudgetFormState extends State<EditBudgetForm> {
           RaisedButton(
             onPressed: () async {
               if (_formKey.currentState.validate()) {
+                if (_limit > _budgetValue) {
+                  _limit = 0;
+                }
                 dynamic result = await _dbService.editBudgetsData(_budgetName,
                     _budgetDescription, _budgetValue, _limit, budgetId);
                 if (result == null) {
